@@ -41,6 +41,8 @@ module.exports = ({ realm }) => (client, message) => {
       realm.addMessageToQueue(dstId, message);
     } else if (type === MessageType.LEAVE && !dstId) {
       realm.removeClientById(srcId);
+    } else if (type === MessageType.USERDEFINED) {
+      realm.app.emit('userdefined', message.src, message.payload);
     } else {
       // Unavailable destination specified with message LEAVE or EXPIRE
       // Ignore

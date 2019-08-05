@@ -14,6 +14,8 @@ const init = ({ app, server, options }) => {
   const { startMessagesExpiration } = require('./services/messagesExpire')({ realm, config });
 
   app.use(options.path, api);
+  app.realm = realm;
+  realm.app = app;
 
   const wss = new WebSocketServer({
     server,
